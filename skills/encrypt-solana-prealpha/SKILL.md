@@ -1,11 +1,11 @@
 ---
 name: encrypt-solana-prealpha
-description: "Use when integrating Encrypt on Solana pre-alpha: #[encrypt_fn] / EUint graphs, EncryptService (CreateInput, ReadCiphertext), devnet program + CPI (encrypt-pinocchio, encrypt-native, encrypt-anchor), @encrypt.xyz/pre-alpha-solana-client—or choosing Encrypt vs ika dWallet signing."
+description: "Use when integrating Encrypt on Solana pre-alpha: #[encrypt_fn] / DSL (EUint, EVector, EBitVector, PUint), EncryptService (CreateInput, ReadCiphertext), devnet + CPI SDKs, @encrypt.xyz/pre-alpha-solana-client—or fees (ENC/SOL), EncryptDeposit, account/event/fee layouts, graph IR, access control, decryption, mock vs real FHE, tutorials/examples—or byte-level Encrypt reference lookups—or Encrypt vs ika dWallet signing."
 ---
 
 # encrypt solana pre-alpha
 
-Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`encrypt-pre-alpha`](https://github.com/dwallet-labs/encrypt-pre-alpha) `docs/`. **Load [`references/`](references/)** for gRPC, ix tables, flows — hub only.
+Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`encrypt-pre-alpha`](https://github.com/dwallet-labs/encrypt-pre-alpha) `docs/`. **Load [`references/`](references/)** for gRPC, ix, flows.
 
 **Docs revision:** [`references/docs-revision.md`](references/docs-revision.md) — if `docs/` on `main` is past the tracked commit, **tell the user** the skill may be stale; do not silently rewrite skill files.
 
@@ -19,11 +19,15 @@ Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`e
 
 | file | load for |
 | --- | --- |
+| [`references/developer-guide-map.md`](references/developer-guide-map.md) | Book TOC + URLs — load before guessing |
+| [`references/book-snapshots.md`](references/book-snapshots.md) | Lists all book-copy md under `references/` |
+| [`references/fee-and-state-reference.md`](references/fee-and-state-reference.md) | ENC/SOL fees, seven account kinds, five event types |
 | [`references/docs-revision.md`](references/docs-revision.md) | `docs/` vs `main` |
 | [`references/grpc-api.md`](references/grpc-api.md) | `EncryptService`, proto, clients |
 | [`references/instructions.md`](references/instructions.md) | Discriminators, ix groups |
 | [`references/frameworks.md`](references/frameworks.md) | Crates, `EncryptCpi`, toolchain |
 | [`references/flows.md`](references/flows.md) | Lifecycle, tests, CPI vs signer |
+| [`references/dsl-types.md`](references/dsl-types.md) | `EUint*` / `EVector*` / `EBitVector*` / `PUint*` tables |
 
 ## install & tooling
 
@@ -38,7 +42,7 @@ Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`e
 | Encrypt program id | `4ebfzWdKnrnGseuQpezXdG8yCdHqwQ1SSBHD3bWArND8` |
 | source repo | `https://github.com/dwallet-labs/encrypt-pre-alpha` |
 
-**Canonical:** program id, Encrypt gRPC URL, Solana RPC, git remote — only here; keep samples aligned.
+**Canonical:** program id, gRPC URL, Solana RPC, git remote — hub only; align samples.
 
 ## quick pointers
 
@@ -46,7 +50,7 @@ Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`e
 
 **gRPC:** `encrypt.v1.EncryptService` — `CreateInput`, `ReadCiphertext` — [`grpc-api.md`](references/grpc-api.md).
 
-**Model:** `#[encrypt_fn]` → graph → on-chain `execute_graph` / ciphertext accounts → executor + `commit_ciphertext`; decrypt via gateway ix — [`flows.md`](references/flows.md), [introduction](https://docs.encrypt.xyz/).
+**Model:** `#[encrypt_fn]` → graph → on-chain `execute_graph` / ciphertext accounts → executor + `commit_ciphertext`; decrypt via gateway ix — [`flows.md`](references/flows.md), [introduction](https://docs.encrypt.xyz/). **Book-only** (DSL incl. `EVector*` / `EBitVector*`, tutorial, CP-token/swap, fees, schemas): [`developer-guide-map.md`](references/developer-guide-map.md), [`book-snapshots.md`](references/book-snapshots.md), [`fee-and-state-reference.md`](references/fee-and-state-reference.md).
 
 ## common mistakes
 
@@ -56,5 +60,6 @@ Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`e
 | Wrong `CreateInput` **authorized** / **network_encryption_public_key** | Match **NetworkEncryptionKey** + access rules — [`grpc-api.md`](references/grpc-api.md). |
 | **Encrypt** vs **ika** dWallet | ika signing / `approve_message` → **`ika-solana-prealpha`** skill, not this one. |
 | Patching skill when upstream `docs/` changed | **Notify user** — [`docs-revision.md`](references/docs-revision.md). |
+| Forgetting Encrypt **fees / deposits / events** | Not ika-shaped — [`fee-and-state-reference.md`](references/fee-and-state-reference.md) + [`book-snapshots.md`](references/book-snapshots.md). |
 
 **Examples:** [encrypt-pre-alpha `chains/solana/examples`](https://github.com/dwallet-labs/encrypt-pre-alpha/tree/main/chains/solana/examples).

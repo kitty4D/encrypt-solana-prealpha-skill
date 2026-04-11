@@ -17,7 +17,7 @@
 | Native | `encrypt-native` | `solana-program` |
 | Anchor | `encrypt-anchor` | `anchor-lang` v1 line per upstream examples |
 
-All three share the **`#[encrypt_fn]`** DSL (from `encrypt-dsl` / Solana DSL wrappers as documented) and the **`EncryptCpi`** trait pattern described in the [CPI framework chapter](https://docs.encrypt.xyz/).
+All three share the **`#[encrypt_fn]`** DSL (from `encrypt-dsl` / Solana DSL wrappers as documented) and the **`EncryptCpi`** trait pattern described in the [CPI framework chapter](https://docs.encrypt.xyz/on-chain/cpi-framework.html). Per-framework prose: [Pinocchio](https://docs.encrypt.xyz/frameworks/pinocchio.html), [Anchor](https://docs.encrypt.xyz/frameworks/anchor.html), [Native](https://docs.encrypt.xyz/frameworks/native.html) — also listed in [`developer-guide-map.md`](developer-guide-map.md).
 
 ---
 

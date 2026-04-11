@@ -2,6 +2,8 @@
 
 **Canonical tables and account metas:** [Instruction reference](https://docs.encrypt.xyz/reference/instructions.html) (repo: `docs/src/reference/instructions.md`).
 
+**Related book material (not duplicated here):** [Account reference](https://docs.encrypt.xyz/reference/accounts.html), [Event reference](https://docs.encrypt.xyz/reference/events.html), [Fee model](https://docs.encrypt.xyz/reference/fees.html) — orient fast in [`fee-and-state-reference.md`](fee-and-state-reference.md). Full chapter index: [`developer-guide-map.md`](developer-guide-map.md).
+
 **Rule:** First byte of instruction data = **discriminator**. The program defines **22** functional instructions plus **`emit_event` (discriminator 228)**.
 
 ---
