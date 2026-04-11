@@ -28,6 +28,8 @@ Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`e
 | [`references/frameworks.md`](references/frameworks.md) | Crates, `EncryptCpi`, toolchain |
 | [`references/flows.md`](references/flows.md) | Lifecycle, tests, CPI vs signer |
 | [`references/dsl-types.md`](references/dsl-types.md) | `EUint*` / `EVector*` / `EBitVector*` / `PUint*` tables |
+| [`references/gotchas.md`](references/gotchas.md) | Field-tested bugs, silent failures, BPF limits, CPI layout |
+| [`references/performance-caveats.md`](references/performance-caveats.md) | Timing, REFHE vs TFHE, bootstrap cost unknowns |
 
 ## install & tooling
 
@@ -50,13 +52,15 @@ Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`e
 
 **gRPC:** `encrypt.v1.EncryptService` — `CreateInput`, `ReadCiphertext` — [`grpc-api.md`](references/grpc-api.md).
 
-**Model:** `#[encrypt_fn]` → graph → on-chain `execute_graph` / ciphertext accounts → executor + `commit_ciphertext`; decrypt via gateway ix — [`flows.md`](references/flows.md), [introduction](https://docs.encrypt.xyz/). **Book-only** (DSL incl. `EVector*` / `EBitVector*`, tutorial, CP-token/swap, fees, schemas): [`developer-guide-map.md`](references/developer-guide-map.md), [`book-snapshots.md`](references/book-snapshots.md), [`fee-and-state-reference.md`](references/fee-and-state-reference.md).
+**Model:** `#[encrypt_fn]` (scalars) or `#[encrypt_fn_graph]` (scalars + vectors) → graph → on-chain `execute_graph` / ciphertext accounts → executor + `commit_ciphertext`; decrypt via gateway ix — [`flows.md`](references/flows.md), [introduction](https://docs.encrypt.xyz/). **Field-tested gotchas** (executor bugs, silent failures, BPF limits, CPI layout): [`gotchas.md`](references/gotchas.md). **Performance** (REFHE vs TFHE, timing caveats): [`performance-caveats.md`](references/performance-caveats.md). **Book-only** (DSL incl. `EVector*` / `EBitVector*`, tutorial, CP-token/swap, fees, schemas): [`developer-guide-map.md`](references/developer-guide-map.md), [`book-snapshots.md`](references/book-snapshots.md), [`fee-and-state-reference.md`](references/fee-and-state-reference.md).
 
 ## common mistakes
 
 | mistake | instead |
 | --- | --- |
 | Assuming pre-alpha ciphertexts are secret | Treat as **public / plaintext-capable** (book + repo). |
+| Using `#[encrypt_fn]` with vector types | Vectors lack `HasFheTypeId` — use **`#[encrypt_fn_graph]`** from `encrypt-dsl` and invoke CPI manually. See [`gotchas.md`](references/gotchas.md). |
+| Treating devnet commit times as FHE benchmarks | Pre-alpha runs **no real FHE** — all timings are mock overhead. See [`performance-caveats.md`](references/performance-caveats.md). |
 | Wrong `CreateInput` **authorized** / **network_encryption_public_key** | Match **NetworkEncryptionKey** + access rules — [`grpc-api.md`](references/grpc-api.md). |
 | **Encrypt** vs **ika** dWallet | ika signing / `approve_message` → **`ika-solana-prealpha`** skill, not this one. |
 | Patching skill when upstream `docs/` changed | **Notify user** — [`docs-revision.md`](references/docs-revision.md). |
