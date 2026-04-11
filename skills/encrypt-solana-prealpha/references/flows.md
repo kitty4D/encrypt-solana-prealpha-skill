@@ -8,8 +8,10 @@ Normative detail: [Encrypt Developer Guide](https://docs.encrypt.xyz/) — espec
 
 ## flow 0 — author FHE logic
 
-1. Write functions with **`#[encrypt_fn]`** using encrypted types (`EUint64`, etc.).
+1. Write functions with **`#[encrypt_fn]`** (scalar-only) or **`#[encrypt_fn_graph]`** (scalars + vectors) using encrypted types.
 2. Macro expands to a **computation graph** (DAG of FHE ops) consumed by the Solana program SDK.
+
+**`#[encrypt_fn]`** (from `encrypt-solana-dsl`) requires `HasFheTypeId` — vector types do not implement this. For any graph using `EVectorU128` or other vector types, use **`#[encrypt_fn_graph]`** (from base `encrypt-dsl`) and invoke CPI via `EncryptContext::execute_graph()` manually. See [`gotchas.md`](gotchas.md).
 
 See **DSL reference** in the book and `encrypt-dsl` in the repo.
 
