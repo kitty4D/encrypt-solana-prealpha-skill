@@ -1,6 +1,6 @@
 # In-repo snapshots of the Encrypt Developer Guide
 
-**Purpose:** Table-heavy or high-retrieval chapters copied from [`encrypt-pre-alpha`](https://github.com/dwallet-labs/encrypt-pre-alpha) `docs/src/` so agents can answer without opening the browser. **Normative** text is always the [published book](https://docs.encrypt.xyz/) at the revision you care about — refresh copies when you bump [`docs-revision.md`](docs-revision.md).
+**Purpose:** Table-heavy or high-retrieval chapters copied from [`encrypt-pre-alpha`](https://github.com/dwallet-labs/encrypt-pre-alpha) `docs/src/` so agents can answer without opening the browser. **Normative** text is always the [published book](https://docs.encrypt.xyz/) at the revision you care about — refresh copies when you bump [`docs-revision.md`](docs-revision.md). **Last aligned** with the `docs/` commit recorded in [`docs-revision.md`](docs-revision.md) on upstream `main`.
 
 ## snapshot files
 

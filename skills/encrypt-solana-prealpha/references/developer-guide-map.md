@@ -37,7 +37,7 @@
 
 | Chapter | URL | Load when |
 | --- | --- | --- |
-| The DSL | https://docs.encrypt.xyz/dsl/overview.html | Macro model, EUint vs plaintext inputs |
+| The DSL | https://docs.encrypt.xyz/dsl/overview.html | `#[encrypt_fn]` (Solana + CPI trait) vs `#[encrypt_fn_graph]` (graph bytes only); plaintext inputs — link-only |
 | Types | https://docs.encrypt.xyz/dsl/types.html | `EUint*`, `EBool`, `PUint*`, **`EVector*` (arithmetic vectors / SIMD-style arrays, 8,192-byte payloads), `EBitVector*` (packed bools)**, `FHE_TYPE_ID` — **in-repo copy:** [`dsl-types.md`](dsl-types.md) |
 | Operations | https://docs.encrypt.xyz/dsl/operations.html | Scalar **and vector** arithmetic; `from_elements`, `splat`, bitmask constructors — [`dsl-operations.md`](dsl-operations.md) |
 | Constants | https://docs.encrypt.xyz/dsl/constants.html | Literals / const in graphs; **vector** `from_elements` / `splat` / `EBitVector*` — [`dsl-constants.md`](dsl-constants.md) |
@@ -86,8 +86,8 @@
 | Encrypted Coin Flip | https://docs.encrypt.xyz/examples/coin-flip/01-overview.html | Escrow, betting, React |
 | Confidential Voting | https://docs.encrypt.xyz/examples/voting/01-overview.html | Parallels tutorial + E2E |
 | Encrypted ACL | https://docs.encrypt.xyz/examples/acl/01-overview.html | Access patterns |
-| CP-Token | https://docs.encrypt.xyz/examples/cp-token/01-overview.html | |
-| CP-Swap | https://docs.encrypt.xyz/examples/cp-swap/01-overview.html | |
+| PC-Token | https://docs.encrypt.xyz/examples/pc-token/01-overview.html | Repo: `chains/solana/examples/pc-token/` |
+| PC-Swap | https://docs.encrypt.xyz/examples/pc-swap/01-overview.html | Repo: `chains/solana/examples/pc-swap/` |
 
 Subpages under each example follow `02-program.html`, `03-testing.html`, etc., on the same path prefix.
 
@@ -106,4 +106,4 @@ Subpages under each example follow `02-program.html`, `03-testing.html`, etc., o
 
 ## repo parity
 
-Example **source** paths (not a substitute for the book): `chains/solana/examples/` in `encrypt-pre-alpha` (Pinocchio / Native / Anchor variants per example).
+Example **source** paths (not a substitute for the book): `chains/solana/examples/` in `encrypt-pre-alpha` (Pinocchio / Native / Anchor variants per example). Book **PC-Token** / **PC-Swap** ↔ `pc-token/`, `pc-swap/` on disk.

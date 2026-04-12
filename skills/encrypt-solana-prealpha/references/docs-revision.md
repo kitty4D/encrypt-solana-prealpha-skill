@@ -6,8 +6,8 @@ Published book: [Encrypt Developer Guide](https://docs.encrypt.xyz/) is built fr
 
 | field | value |
 | --- | --- |
-| commit (full) | `2bd135515e9d925e0ae1e6701a3dbe1bf93b9667` |
-| commit (short) | `2bd1355` |
+| commit (full) | `855519aef7f77e6c8564660205d391a666c07768` |
+| commit (short) | `855519a` |
 | upstream commit date (UTC) | 2026-04-11 |
 | recorded in skill | 2026-04-11 |
 

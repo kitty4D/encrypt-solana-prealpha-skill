@@ -2,7 +2,7 @@
 
 Normative detail: [Encrypt Developer Guide](https://docs.encrypt.xyz/) — especially **on-chain** chapters (`execute-graph`, `ciphertexts`, `decryption`, `access-control`) and **testing**.
 
-**Broader book coverage:** Step-by-step **confidential voting tutorial**, **DSL** (types / ops / conditionals / graph compilation), **framework** pages, **mock vs real FHE**, and **examples** (counter, coin-flip, voting, ACL, CP-token, CP-swap) are indexed in [`developer-guide-map.md`](developer-guide-map.md) — load that file instead of assuming the Encrypt surface is only gRPC + `execute_graph`.
+**Broader book coverage:** Step-by-step **confidential voting tutorial**, **DSL** (types / ops / conditionals / graph compilation), **framework** pages, **mock vs real FHE**, and **examples** (counter, coin-flip, voting, ACL, PC-token, PC-swap) are indexed in [`developer-guide-map.md`](developer-guide-map.md) — load that file instead of assuming the Encrypt surface is only gRPC + `execute_graph`.
 
 ---
 
@@ -65,4 +65,4 @@ Pre-alpha README: executor handles create_input, graph eval + commit, and decryp
 - **Integration:** `just test-examples` (needs SBF builds).
 - **Harness:** `encrypt-solana-test`, LiteSVM, `MockComputeEngine` — see **testing** chapters in the book.
 
-Examples under `chains/solana/examples/` (voting, counter, ACL, CP-Token, CP-Swap, coin-flip) ship **Pinocchio, Native, and Anchor** variants.
+Examples under `chains/solana/examples/` (voting, counter, ACL, `pc-token`, `pc-swap`, coin-flip) ship **Pinocchio, Native, and Anchor** variants.

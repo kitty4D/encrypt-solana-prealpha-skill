@@ -10,5 +10,6 @@ desktop.ini
 
 # Scratch
 *.local.md
+_upstream_docs/
 .env
 .env.*
