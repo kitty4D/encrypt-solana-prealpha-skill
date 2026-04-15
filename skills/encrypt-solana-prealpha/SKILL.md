@@ -1,19 +1,20 @@
 ---
 name: encrypt-solana-prealpha
-description: "Use when integrating Encrypt on Solana pre-alpha: #[encrypt_fn] / DSL (EUint, EVector, EBitVector, PUint), EncryptService (CreateInput, ReadCiphertext), devnet + CPI SDKs, @encrypt.xyz/pre-alpha-solana-client—or fees (ENC/SOL), EncryptDeposit, account/event/fee layouts, graph IR, access control, decryption, mock vs real FHE, tutorials/examples—or byte-level Encrypt reference lookups—or Encrypt vs ika dWallet signing."
+description: Use when integrating Encrypt on Solana pre-alpha (devnet)—FHE DSL (`#[encrypt_fn]`, graphs, ciphertexts), Encrypt gRPC (`CreateInput`, `ReadCiphertext`), on-chain `execute_graph` / fees / events, `@encrypt.xyz/pre-alpha-solana-client`, or disambiguating Encrypt vs ika dWallet signing. Symptoms include book vs `encrypt-pre-alpha` `docs/` drift, NEK or `authorized` wiring mistakes, vector vs scalar graph paths, and mock executor / BPF / ciphertext lifecycle surprises.
 ---
 
 # encrypt solana pre-alpha
 
 Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`encrypt-pre-alpha`](https://github.com/dwallet-labs/encrypt-pre-alpha) `docs/`. **Load [`references/`](references/)** for gRPC, ix, flows.
 
-**Docs revision:** [`references/docs-revision.md`](references/docs-revision.md) — if `docs/` on `main` is past the tracked commit, **tell the user** the skill may be stale; do not silently rewrite skill files.
+**`docs/` pin:** [`references/docs-revision.md`](references/docs-revision.md) — if `main` changed `docs/` after that commit, **tell the user** the skill may be stale; do not silently rewrite this bundle. Gate, script, checklist: [`references/audit.md`](references/audit.md).
 
 ## pre-alpha disclaimer
 
 - **Exploration only** — not production confidentiality.
 - **No real encryption guarantee** — data can be **plaintext on-chain**; do not submit sensitive or real data.
 - **Keys / trust model not final**; **devnet resets**; **no warranty**. Do not market as production FHE or private custody to end users.
+- **Not for** ika dWallet signing (`approve_message`, `DWalletService` SubmitTransaction, MessageApproval PDAs) — use **`ika-solana-prealpha`**.
 
 ## references (load on demand)
 
@@ -23,11 +24,13 @@ Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`e
 | [`references/book-snapshots.md`](references/book-snapshots.md) | Lists all book-copy md under `references/` |
 | [`references/fee-and-state-reference.md`](references/fee-and-state-reference.md) | ENC/SOL fees, seven account kinds, five event types |
 | [`references/docs-revision.md`](references/docs-revision.md) | `docs/` vs `main` |
+| [`references/audit.md`](references/audit.md) | **`audit` / `audit-force`**, drift script, semantic checklist |
 | [`references/grpc-api.md`](references/grpc-api.md) | `EncryptService`, proto, clients |
 | [`references/instructions.md`](references/instructions.md) | Discriminators, ix groups |
 | [`references/frameworks.md`](references/frameworks.md) | Crates, `EncryptCpi`, toolchain |
 | [`references/flows.md`](references/flows.md) | Lifecycle, tests, CPI vs signer |
 | [`references/dsl-types.md`](references/dsl-types.md) | `EUint*` / `EVector*` / `EBitVector*` / `PUint*` tables |
+| [`references/dsl-vectors.md`](references/dsl-vectors.md) | Vector types, element-wise `#[encrypt_fn]`, gather/scatter, gRPC + limits |
 | [`references/gotchas.md`](references/gotchas.md) | Field-tested bugs, silent failures, BPF limits, CPI layout |
 | [`references/performance-caveats.md`](references/performance-caveats.md) | Timing, REFHE vs TFHE, bootstrap cost unknowns |
 
@@ -52,14 +55,14 @@ Normative: [Encrypt Developer Guide](https://docs.encrypt.xyz/) · mdbook in [`e
 
 **gRPC:** `encrypt.v1.EncryptService` — `CreateInput`, `ReadCiphertext` — [`grpc-api.md`](references/grpc-api.md).
 
-**Model:** `#[encrypt_fn]` (scalars) or `#[encrypt_fn_graph]` (scalars + vectors) → graph → on-chain `execute_graph` / ciphertext accounts → executor + `commit_ciphertext`; decrypt via gateway ix — [`flows.md`](references/flows.md), [introduction](https://docs.encrypt.xyz/). **Field-tested gotchas** (executor bugs, silent failures, BPF limits, CPI layout): [`gotchas.md`](references/gotchas.md). **Performance** (REFHE vs TFHE, timing caveats): [`performance-caveats.md`](references/performance-caveats.md). **Book-only** (DSL incl. `EVector*` / `EBitVector*`, tutorial, PC-token/swap, fees, schemas): [`developer-guide-map.md`](references/developer-guide-map.md), [`book-snapshots.md`](references/book-snapshots.md), [`fee-and-state-reference.md`](references/fee-and-state-reference.md).
+**Model:** `#[encrypt_fn]` (scalars; **vectors** element-wise per book [`dsl-vectors.md`](references/dsl-vectors.md)) or `#[encrypt_fn_graph]` (graph bytes / chain-agnostic) → graph → on-chain `execute_graph` / ciphertext accounts → executor + `commit_ciphertext`; decrypt via gateway ix — [`flows.md`](references/flows.md), [introduction](https://docs.encrypt.xyz/). **Gotchas:** [`gotchas.md`](references/gotchas.md). **Performance:** [`performance-caveats.md`](references/performance-caveats.md). **Book map + snapshots + fees:** [`developer-guide-map.md`](references/developer-guide-map.md), [`book-snapshots.md`](references/book-snapshots.md), [`fee-and-state-reference.md`](references/fee-and-state-reference.md).
 
 ## common mistakes
 
 | mistake | instead |
 | --- | --- |
 | Assuming pre-alpha ciphertexts are secret | Treat as **public / plaintext-capable** (book + repo). |
-| Using `#[encrypt_fn]` with vector types | Vectors lack `HasFheTypeId` — use **`#[encrypt_fn_graph]`** from `encrypt-dsl` and invoke CPI manually. See [`gotchas.md`](references/gotchas.md). |
+| Assuming vectors always need `#[encrypt_fn_graph]` | Book **Vectors** shows element-wise **`#[encrypt_fn]`** with `EUint*Vector` — [`dsl-vectors.md`](references/dsl-vectors.md). If **`encrypt-solana-dsl`** still errors (`HasFheTypeId`) or you need graph-only bytes, use **`#[encrypt_fn_graph]`** — [`gotchas.md`](references/gotchas.md). |
 | Treating devnet commit times as FHE benchmarks | Pre-alpha runs **no real FHE** — all timings are mock overhead. See [`performance-caveats.md`](references/performance-caveats.md). |
 | Wrong `CreateInput` **authorized** / **network_encryption_public_key** | Match **NetworkEncryptionKey** + access rules — [`grpc-api.md`](references/grpc-api.md). |
 | **Encrypt** vs **ika** dWallet | ika signing / `approve_message` → **`ika-solana-prealpha`** skill, not this one. |

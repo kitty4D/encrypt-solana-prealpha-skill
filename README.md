@@ -11,9 +11,28 @@ normative sources: [Encrypt developer guide](https://docs.encrypt.xyz/) and [dwa
 
 | path | contents |
 | --- | --- |
-| `skills/encrypt-solana-prealpha/` | `SKILL.md` + `references/` (including [`references/docs-revision.md`](skills/encrypt-solana-prealpha/references/docs-revision.md)). |
+| `skills/encrypt-solana-prealpha/` | `SKILL.md` + `references/` (including [`references/docs-revision.md`](skills/encrypt-solana-prealpha/references/docs-revision.md)) |
+| `skills/encrypt-solana-prealpha/scripts/` | [`audit-encrypt-solana-prealpha.mjs`](skills/encrypt-solana-prealpha/scripts/audit-encrypt-solana-prealpha.mjs) — optional drift + dependency / canonical-string checks (node stdlib) |
 
 [`docs-revision.md`](skills/encrypt-solana-prealpha/references/docs-revision.md) records which **`docs/`** commit in [encrypt-pre-alpha](https://github.com/dwallet-labs/encrypt-pre-alpha) this bundle was last aligned with. if **`docs/`** on `main` has moved since then, treat the hosted book as ahead of this snapshot. refresh the skill or disable it in your editor until you have a bundle you trust.
+
+### audit your codebase for issues related to encrypt-solana-prealpha
+
+> **note:** **audit mode** (slash commands, [`references/audit.md`](skills/encrypt-solana-prealpha/references/audit.md) checklist, script follow-up output) is **in progress** — behavior and docs may still shift.
+
+use commands **`/encrypt-solana-prealpha audit`** and **`/encrypt-solana-prealpha audit-force`** (trailing tokens on the skill slash). **audit** stops if the skill’s doc pin is stale vs upstream `docs/`; **audit-force** still prints that warning then continues.
+
+from the **repo root** of this clone:
+
+```bash
+node skills/encrypt-solana-prealpha/scripts/audit-encrypt-solana-prealpha.mjs --root=/path/to/your/app
+```
+
+add `--force` for audit-force behavior. if you only copied the skill folder, `cd` into `encrypt-solana-prealpha` and run `node scripts/audit-encrypt-solana-prealpha.mjs` the same way. full gate + checklist: [`references/audit.md`](skills/encrypt-solana-prealpha/references/audit.md); hub: [`SKILL.md`](skills/encrypt-solana-prealpha/SKILL.md).
+
+the script also hits the **npm registry** `latest` tag for `@encrypt.xyz/pre-alpha-solana-client` and `@solana/kit` when it can read a resolved version from `package-lock.json`, `pnpm-lock.yaml`, or `yarn.lock` (including a lockfile a few directories up in a monorepo). it uses a small semver compare (stdlib only)—not a full npm arborist solve.
+
+**maintainers:** after bumping [`docs-revision.md`](skills/encrypt-solana-prealpha/references/docs-revision.md), run `node skills/encrypt-solana-prealpha/scripts/audit-encrypt-solana-prealpha.mjs` from this repo root; expect exit **0** and `docs/ vs main: fresh`.
 
 ## install
 

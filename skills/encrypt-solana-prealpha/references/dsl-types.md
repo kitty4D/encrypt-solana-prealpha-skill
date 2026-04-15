@@ -26,7 +26,7 @@
 
 ## Arithmetic Vectors (13)
 
-`EVectorU8` through `EVectorU32768` — SIMD-style encrypted integer arrays (8,192 bytes each).
+`EVectorU8` through `EVectorU32768` — SIMD-style encrypted integer arrays (8,192 bytes each). The book’s **Vectors** chapter uses `EUint*Vector` names in examples and expands operations (`gather`, `scatter`, …) — **in-repo copy:** [`dsl-vectors.md`](dsl-vectors.md).
 
 ## Plaintext Types
 

@@ -7,6 +7,7 @@
 | Snapshot | Book URL | Upstream path |
 | --- | --- | --- |
 | [`dsl-types.md`](dsl-types.md) | [FHE types](https://docs.encrypt.xyz/dsl/types.html) | `dsl/types.md` |
+| [`dsl-vectors.md`](dsl-vectors.md) | [Vectors](https://docs.encrypt.xyz/dsl/vectors.html) | `dsl/vectors.md` |
 | [`dsl-operations.md`](dsl-operations.md) | [Operations](https://docs.encrypt.xyz/dsl/operations.html) | `dsl/operations.md` |
 | [`dsl-constants.md`](dsl-constants.md) | [Constants](https://docs.encrypt.xyz/dsl/constants.html) | `dsl/constants.md` |
 | [`dsl-conditionals.md`](dsl-conditionals.md) | [Conditionals](https://docs.encrypt.xyz/dsl/conditionals.html) | `dsl/conditionals.md` |
@@ -26,4 +27,4 @@
 
 ## reference-skill testing (writing-skills)
 
-For **retrieval** checks: ask for event wire size, ciphertext account offset of `authorized`, ENC fee formula, or `Select` vs branch — answers should cite these snapshots or the book, not guess.
+For **retrieval** checks: ask for event wire size, ciphertext account offset of `authorized`, ENC fee formula, `Select` vs branch, or **vector** gather/scatter / `EUint*Vector` FHE type ids — answers should cite these snapshots or the book, not guess.

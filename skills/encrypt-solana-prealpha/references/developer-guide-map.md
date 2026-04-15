@@ -41,6 +41,7 @@
 | Types | https://docs.encrypt.xyz/dsl/types.html | `EUint*`, `EBool`, `PUint*`, **`EVector*` (arithmetic vectors / SIMD-style arrays, 8,192-byte payloads), `EBitVector*` (packed bools)**, `FHE_TYPE_ID` — **in-repo copy:** [`dsl-types.md`](dsl-types.md) |
 | Operations | https://docs.encrypt.xyz/dsl/operations.html | Scalar **and vector** arithmetic; `from_elements`, `splat`, bitmask constructors — [`dsl-operations.md`](dsl-operations.md) |
 | Constants | https://docs.encrypt.xyz/dsl/constants.html | Literals / const in graphs; **vector** `from_elements` / `splat` / `EBitVector*` — [`dsl-constants.md`](dsl-constants.md) |
+| Vectors | https://docs.encrypt.xyz/dsl/vectors.html | Element-wise `#[encrypt_fn]` on `EUint*Vector`, gather/scatter, gRPC `CreateInput`, limits — **in-repo copy:** [`dsl-vectors.md`](dsl-vectors.md) |
 | Conditionals | https://docs.encrypt.xyz/dsl/conditionals.html | Branches in FHE — [`dsl-conditionals.md`](dsl-conditionals.md) |
 | Graph Compilation | https://docs.encrypt.xyz/dsl/graph-compilation.html | IR, serialization, limits — [`dsl-graph-compilation.md`](dsl-graph-compilation.md) |
 

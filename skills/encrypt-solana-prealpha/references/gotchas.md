@@ -24,11 +24,11 @@ Exception: graphs where **all** inputs come from `createInput` (not from a previ
 
 ## DSL & Macro
 
-### `#[encrypt_fn]` does not work with vector types
+### `#[encrypt_fn]` and vector types (book vs toolchain)
 
-`#[encrypt_fn]` (from `encrypt-solana-dsl`) requires `HasFheTypeId`. Vector types (`EVectorU128`, etc.) do not implement this trait. Only scalar types work.
+**Book:** [Vectors](https://docs.encrypt.xyz/dsl/vectors.html) documents element-wise **`#[encrypt_fn]`** with `EUint*Vector` types (see in-repo [`dsl-vectors.md`](dsl-vectors.md)).
 
-Use `#[encrypt_fn_graph]` (from base `encrypt-dsl`) instead. It compiles graph bytecode without the CPI wrapper. Invoke via `EncryptContext::execute_graph()` manually.
+**Field-tested:** If **`encrypt-solana-dsl`**’s `#[encrypt_fn]` still errors on **`HasFheTypeId`** for older `EVector*`/`EUint*Vector` wiring, or you need graph-only bytecode without the Solana CPI wrapper, use **`#[encrypt_fn_graph]`** (from base `encrypt-dsl`) and invoke via `EncryptContext::execute_graph()` manually.
 
 ### `vector.is_equal(&scalar_input)` silently returns all-false
 
